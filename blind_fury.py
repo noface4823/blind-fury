@@ -47,7 +47,7 @@ def banner():
     quote = """
 Welcome to Blind Fury "Strike in silence, exploit without mercy — Blind Fury uncovers what others fear to see."
 (INSPIRED BY LOSTSEC)
-                                                             - noface
+                                                             Author : noface
 """
     # Print the banner logo and quote using typewriter effect
     typewriter_effect(logo, delay=0.01)  # Speed up the logo printing
