@@ -13,11 +13,11 @@ now veryfy your account by the link you will recieve in your entered mail addres
 now simply login to your account using the credentials
 ---------------------------------------------------------------------------------------------------------------------------------------
 now come to your linux terminal and fire the following commands one by one:
-git clone https://github.com/noface4823/blind-fury.git
-cd blind-fury
-sudo chmod 777 *
-sudo bash setup.sh
-sudo python3 blind_fury.py
+- git clone https://github.com/noface4823/blind-fury.git
+- cd blind-fury
+- sudo chmod 777 *
+- sudo bash setup.sh
+- sudo python3 blind_fury.py
 
 you can see the reports of vulnerable urls in xss.reports section
 
