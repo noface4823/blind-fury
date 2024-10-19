@@ -6,8 +6,8 @@ sudo apt update -y
 sudo apt upgrade -y
 echo "installing tqdm............"
 pip3 install tqdm --break-system-packages
-
-
+echo "installing uro............"
+pip3 install uro --break-system-packages
 # Install Go (if not installed)
 if ! [ -x "$(command -v go)" ]; then
     echo "Go not found, installing Go..."
