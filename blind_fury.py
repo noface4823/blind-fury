@@ -55,7 +55,7 @@ Welcome to Blind Fury "Strike in silence, exploit without mercy — Blind Fury u
 
 # Function to run the initial command and capture output
 def run_initial_command(domain, output_file):
-    initial_command = f"subfinder -d {domain} | httpx-toolkit -silent | katana -ps -f qurl | gf xss > {output_file}"
+    initial_command = f"subfinder -d {domain} | httpx-toolkit -silent | katana -ps -f qurl | uro | gf xss > {output_file}"
     print(f"Running initial command:\n{initial_command}\n")
     os.system(initial_command)
 
