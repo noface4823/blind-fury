@@ -1,60 +1,50 @@
 #!/bin/bash
 
-# Update the system
-echo "Updating system..........."
-sudo apt update -y
-sudo apt upgrade -y
-echo "installing tqdm............"
-pip3 install tqdm --break-system-packages
-echo "installing uro............"
-pip3 install uro --break-system-packages
-# Install Go (if not installed)
-if ! [ -x "$(command -v go)" ]; then
-    echo "Go not found, installing Go..."
-    sudo apt install -y golang-go
-else
-    echo "Go is already installed!"
-fi
+# Update and upgrade the system
+echo "Updating and upgrading system..."
+sudo apt update -y && sudo apt upgrade -y
 
-# Install Subfinder
-echo "Installing Subfinder..........."
-sudo apt install subfinder -y
+# Install dependencies
+echo "Installing dependencies..."
+sudo apt install git wget curl python3 python3-pip -y
 
-# Install httpx
-echo "Installing httpx..........."
-sudo apt install httpx-toolkit -y
+# Install GoLang
+echo "Installing GoLang..."
+sudo apt install golang -y
+mkdir -p $HOME/go/{bin,src,pkg}
+echo "export GOPATH=$HOME/go" >> ~/.zshrc
+echo "export PATH=$GOPATH/bin:$PATH" >> ~/.zshrc
+source ~/.zshrc
+
+# Install URO
+echo "Installing URO..."
+pip3 install uro --break-system-packages|| { echo "URO installation failed"; exit 1; }
+
 # Install Katana
 echo "Installing Katana..."
-go install -v github.com/projectdiscovery/katana/cmd/katana@latest
-
-# Install gf (Gf Pattern Matching)
-echo "Installing gf..........."
-go install -v github.com/tomnomnom/gf@latest
-echo "Fetching gf patterns..."
-git clone https://github.com/1ndianl33t/Gf-Patterns
-mkdir -p ~/.gf
-cp -r Gf-Patterns/*.json ~/.gf/
+go install github.com/projectdiscovery/katana/cmd/katana@latest || { echo "Katana installation failed"; exit 1; }
 
 # Install BXSS
 echo "Installing BXSS..."
-go install github.com/Elsfa7-110/bxss@latest
+go install github.com/ethicalhackingplayground/bxss@latest || { echo "BXSS repository clone failed"; exit 1; }
 
-# Add Go bin to PATH if not already added
-if ! echo $PATH | grep -q "$HOME/go/bin"; then
-    echo "Adding Go bin to PATH..."
-    echo "export PATH=$PATH:$HOME/go/bin" >> ~/.bashrc
-    source ~/.bashrc
-fi
 
-# Check if all tools are installed
-echo "Verifying installations..."
-for tool in subfinder httpx katana gf bxss; do
-    if ! [ -x "$(command -v $tool)" ]; then
-        echo "$tool installation failed. Please check manually."
-    else
-        echo "$tool installed successfully!"
-    fi
-done
+# Install GF and GF Patterns
+echo "Installing GF and GF Patterns..."
+go install github.com/tomnomnom/gf@latest || { echo "GF installation failed"; exit 1; }
+mkdir -p ~/.gf
+git clone https://github.com/1ndianl33t/Gf-Patterns || { echo "GF Patterns repository clone failed"; exit 1; }
+mv Gf-Patterns/*.json ~/.gf
 
-echo "Setup complete!"
+# Install Subfinder
+echo "Installing Subfinder..."
+a
+go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 
+# path
+sudo cp $HOME/go/bin/* /usr/bin/
+# Cleanup
+echo "Cleaning up..."
+sudo apt autoremove -y
+
+echo "Installation and setup complete!"
